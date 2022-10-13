@@ -1,5 +1,5 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, Text
+from sqlalchemy import Integer
 from sqlalchemy.orm import relationship
 from marshmallow import post_load
 from app.app import db, ma

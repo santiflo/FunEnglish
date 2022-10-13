@@ -12,11 +12,12 @@ ma = Marshmallow(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
 
 #Models
-from app.Models import Model_Users
+from app.Models import Model_User
 from app.Models import Model_Rol
 from app.Models import Model_Grade
 from app.Models import Model_User_Grade
-from app.models import Model_User_Class
+from app.Models import Model_User_Class
+from app.Models import Model_Class
 #from app.Models import Model_Virtual_Expositions
 #from app.Models import Model_Types
 #from app.Models import Model_Multimedia
@@ -24,6 +25,8 @@ from app.models import Model_User_Class
 #from app.Models import Model_Questions
 
 #Controllers
+from app.Controllers import Controller_User
+from app.Controllers import Controller_Rol
 #from app.Controllers import Controller_Users
 #from app.Controllers import Controller_Login
 #from app.Controllers import Controller_Virtual_Expositions

@@ -1,6 +1,32 @@
 from app.app import app, db
-from app.Models.Model_Users import Schema_Users
-from app.Models.Model_Types import Schema_Types
+#from app.Models.Model_User import Schema_User
+#from app.Models.Model_Types import Schema_Types
+from app.Models.Model_Rol import Schema_Rol
+
+def insert_rol():
+	student_rol = {
+	'name_rol' : 'Student',
+	'describe' : 'Student role which allows you to see classes'
+	}
+	rol = Schema_Rol().load(student_rol)
+	db.session.add(rol)
+	db.session.commit()
+
+	proffesor_rol = {
+	'name_rol' : 'Teacher',
+	'describe' : 'Teacher role which allows you to manage students and their classes'
+	}
+	rol = Schema_Rol().load(proffesor_rol)
+	db.session.add(rol)
+	db.session.commit()
+
+	admin_rol = {
+	'name_rol' : 'Administrator',
+	'describe' : 'administrator role which allows you to manage all aplicatio modules'
+	}
+	rol = Schema_Rol().load(admin_rol)
+	db.session.add(rol)
+	db.session.commit()
 
 def insert_admin():
 	#Usuario administrador
@@ -50,7 +76,8 @@ def insert_types():
 	print('Types created')
 
 #db.create_all()
-#insert_admin()
+#insert_rol()
+#insert_users()
 #insert_types()
 
 app.run(debug=True , host="0.0.0.0")

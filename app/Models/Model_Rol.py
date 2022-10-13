@@ -1,8 +1,9 @@
 from sqlalchemy import Column, ForeignKey
-from sqlalchemy import Integer, Text
+from sqlalchemy import Integer, Text, String
 from sqlalchemy.orm import relationship
 from marshmallow import post_load
 from app.app import db, ma
+from app.Models.Model_User import Model_User
 
 class Model_Rol(db.Model):
 	#Atributos
@@ -12,6 +13,7 @@ class Model_Rol(db.Model):
 	describe = Column(Text, nullable = False)
 	#Foraneos
 	#Relaciones
+	db.relationship('Model_User', backref ='Rol', lazy ='dynamic')
 	#Triggers
 
 	def __repr__(self):
