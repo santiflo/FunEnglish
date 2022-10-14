@@ -8,6 +8,8 @@ from app.Models.Model_User import Model_User, Schema_User
 def create_User():
 	json = request.get_json(force=True)
 	print(json)
+	json['type_document'] = json['type_document'].upper()
+	print(json)
 	User = Schema_User().load(request.get_json())
 	db.session.add(User)
 	db.session.commit()

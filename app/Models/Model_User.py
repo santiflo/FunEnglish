@@ -11,7 +11,7 @@ class Model_User(db.Model):
 	name = Column(String(50), nullable = False)
 	last_name_1 = Column(String(50), nullable = True)
 	last_name_2 = Column(String(50), nullable = True)
-	type_document = Column(String(2), nullable = True)
+	type_document = Column(String(2), nullable = False)
 	document = Column(String(15), nullable = False, unique = True)
 	password = Column(String(128), nullable = False)
 	describe = Column(Text, nullable = True)

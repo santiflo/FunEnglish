@@ -75,7 +75,7 @@ def insert_types():
 	db.session.commit()
 	print('Types created')
 
-#db.create_all()
+db.create_all()
 #insert_rol()
 #insert_users()
 #insert_types()
