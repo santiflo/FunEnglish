@@ -2,11 +2,16 @@ from flask import Flask, make_response, abort, redirect, url_for
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 from flask_cors import CORS
-from app import config
+import os
 
 #Inicializadores
 app = Flask(__name__)
-app.config.from_object(config)
+app.config['DEBUG'] = False
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://funenglish:funenglish2022@database-funenglish.c0edulkmjniv.us-east-1.rds.amazonaws.com:3306/funenglish"
+app.config['SECRET_KEY'] = '8b7d9e3c8d56f706388fdaeb5fc14a81'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(),'Images')
+app.config['MAX_CONTENT_LENGTH'] = 4 * 1000 * 1000
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 CORS(app, resources={r"/*": {"origins": "*"}})
@@ -34,3 +39,7 @@ from app.Controllers import Controller_Rol
 #from app.Controllers import Controller_Multimedia
 #from app.Controllers import Controller_Comments
 #from app.Controllers import Controller_Questions
+
+@app.route('/', methods = ['POST','GET'])
+def index():
+	return '<H1>Hola Jeison</H1>'

@@ -10,7 +10,7 @@ def create_User():
 	print(json)
 	json['type_document'] = json['type_document'].upper()
 	print(json)
-	User = Schema_User().load(request.get_json())
+	User = Schema_User().load(json)
 	db.session.add(User)
 	db.session.commit()
 	return "Creado", 201

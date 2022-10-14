@@ -26,6 +26,7 @@ class Model_User(db.Model):
 class Schema_User(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Model_User
+        include_fk = True
 
     @post_load
     def make_User(self, data, **kwargs):
