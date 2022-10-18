@@ -12,6 +12,7 @@ class Model_Grade(db.Model):
 	describe = Column(Text, nullable = False)
 	#Foraneos
 	#Relaciones
+	db.relationship('Model_User', backref ='Grade', lazy ='dynamic')
 	#Triggers
 
 	def __repr__(self):

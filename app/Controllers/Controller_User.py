@@ -49,6 +49,7 @@ def update_User():
 	document = json['document']
 	describe = json['describe']
 	picture = json['picture']
+	password = json['password']
 
 	User = Model_User.query.get(id)
 
@@ -59,6 +60,7 @@ def update_User():
 	if document != '': User.document = document
 	if describe != '': User.describe = describe
 	if picture != '': User.picture = picture
+	if password != '': User.password = password 
 	db.session.commit()
 	return "OK", 200
 

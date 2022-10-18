@@ -7,8 +7,8 @@ import os
 #Inicializadores
 app = Flask(__name__)
 app.config['DEBUG'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = ""
-app.config['SECRET_KEY'] = ''
+app.config['SQLALCHEMY_DATABASE_URI'] = "mysql://funenglish:funenglish2022@database-funenglish.c0edulkmjniv.us-east-1.rds.amazonaws.com:3306/funenglish"
+app.config['SECRET_KEY'] = '8b7d9e3c8d56f706388fdaeb5fc14a81'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['UPLOAD_FOLDER'] = os.path.join(os.getcwd(),'Images')
 app.config['MAX_CONTENT_LENGTH'] = 4 * 1000 * 1000
