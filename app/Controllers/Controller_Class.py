@@ -43,7 +43,7 @@ def update_Class():
 
 #Este metodo permite eliminar un grado
 @app.route('/Class/Delete/<class_id>', methods = ["DELETE"])
-def delte_Grade(class_id):
+def delte_Class(class_id):
 	Class = Model_Class.query.get(class_id)
 	db.session.delete(Class)
 	db.session.commit()

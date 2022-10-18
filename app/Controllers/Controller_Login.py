@@ -8,13 +8,13 @@ from app.Models.Model_User import Model_User, Schema_User
 def Login():
 	json = request.get_json(force=True)
 	print(json['document'],json['password'])
-	User = Model_Users.query.filter_by(document = json['document']).first()
+	User = Model_User.query.filter_by(document = json['document']).first()
 	if User is None: 
 		return "Bad user or password", 204
 	elif User.password == json['password']:
 		response = jsonify(
 			id = User.id,
-			admin = User.admin
+			rol_id = User.rol_id
 			)
 		response.headers.add('Access-Control-Allow-Origin', '*')
 		return response, 202
