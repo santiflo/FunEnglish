@@ -21,15 +21,7 @@ def all_Users():
 	Users = Model_User.query.all()
 	json = Schema_User(many = True).dump(Users)
 	return jsonify(json), 200
-
-"""
-@app.route('/User', methods = ["GET"])
-def search_User_name(user_name):
-	Users = Model_Users.query.filter(Model_Users.username.ilike('%'+user_name+'%')).all()
-	json = Schema_Users(many = True).dump(Users)
-	return jsonify(json), 200
-"""
-
+	
 #Este metodo permite buscar un usuario mediante su id
 @app.route('/User/Search/id/<user_id>', methods = ["GET"])
 def search_User_id(user_id):
@@ -41,33 +33,24 @@ def search_User_id(user_id):
 @app.route('/User/Update', methods = ["PUT"])
 def update_User():
 	json = request.get_json(force=True)
-	id = json['id']
-	name = json['name']
-	last_name_1 = json['last_name_1']
-	last_name_2 = json['last_name_2']
-	type_document = json['type_document']
-	document = json['document']
-	describe = json['describe']
-	picture = json['picture']
-	password = json['password']
 
-	User = Model_User.query.get(id)
+	User = Model_User.query.get(json['id'])
 
-	if name != '': User.name = name
-	if last_name_1 != '': User.last_name_1 = last_name_1
-	if last_name_2 != '': User.last_name_2 = last_name_2
-	if type_document != '': User.type_document = type_document
-	if document != '': User.document = document
-	if describe != '': User.describe = describe
-	if picture != '': User.picture = picture
-	if password != '': User.password = password 
+	if json['name'] 			!= '': User.name 			= json['name']
+	if json['last_name_1'] 		!= '': User.last_name_1 	= json['last_name_1']
+	if json['last_name_2'] 		!= '': User.last_name_2 	= json['last_name_2']
+	if json['type_document'] 	!= '': User.type_document 	= json['type_document']
+	if json['document'] 		!= '': User.document 		= json['document']
+	if json['describe'] 		!= '': User.describe 		= json['describe']
+	if json['picture'] 			!= '': User.picture 		= json['picture']
+	if json['password'] 		!= '': User.password 		= json['password']
 	db.session.commit()
 	return "OK", 200
 
 #Este metodo permite actualizar la contrasena
 @app.route('/User/Update/password', methods = ["PUT"])
 def update_User_password():
-	json = request.get_json()
+	json = request.get_json(force=True)
 	id = json['id']
 	document = json['document']
 	password = json['password']
@@ -77,7 +60,7 @@ def update_User_password():
 
 #Este metodo permite eliminar un usuario
 @app.route('/User/Delete/<user_id>', methods = ["DELETE"])
-def delte_User(user_id):
+def delete_User(user_id):
 	User = Model_User.query.get(user_id)
 	db.session.delete(User)
 	db.session.commit()
@@ -104,15 +87,16 @@ def adminUsers():
 		Model_Users.name, 
 		Model_Users.email, 
 		Model_Users.admin,
-		Model_Users.req_admin
+		Model_Users.is_activate
 	).all()
 	json = Schema_User(many = True).dump(Users)
 	response = jsonify(json)
 	response.headers.add('Access-Control-Allow-Origin', '*')
 	return response, 200
 
+# Metodo que permite contar la cantidad de usuarios de la plataforma
 @app.route('/User/Amount', methods = ["GET"])
-def TotalUsers():
+def totalUsers():
 	Users = Model_Users.query.with_entities(
 		Model_Users.id,
 	).all()
@@ -121,22 +105,13 @@ def TotalUsers():
 	response.headers.add('Access-Control-Allow-Origin', '*')
 	return response, 200
 
-"""
-@app.route('/Users/Uptdate/Rol', methods = ["PUT"])
-def UpdateAdmin():
-	json = request.get_json(force=True)
-	print(json)
-	print(json["id"])
-	id = json["id"]
-	User = Model_Users.query.get(int(json["id"]))
-
-	if User is None:
-		return "El usuario no existe", 204
-	elif User.admin == 0:
-		User.admin = 1
-		User.req_admin = 0
-	elif User.admin == 1:
-		User.admin = 0
-	db.session.commit()
-	return "OK", 200
-"""
+#Este metodo permite activar y desctivar un usuario
+@app.route('/User/Update/is_activate/<user_id>', methods = ["PUT"])
+def update_User_is_activate(user_id):
+	User = Model_User.query.get(user_id)
+	if User is None: 
+		return "The user does not exist", 204
+	else: 
+		User.is_activate = not User.is_activate
+		db.session.commit()
+		return "The user was update", 200

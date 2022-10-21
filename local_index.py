@@ -1,5 +1,5 @@
 from app.app import app, db
-#from app.Models.Model_User import Schema_User
+from app.Models.Model_User import Schema_User
 #from app.Models.Model_Types import Schema_Types
 from app.Models.Model_Rol import Schema_Rol
 
@@ -31,17 +31,17 @@ def insert_rol():
 def insert_admin():
 	#Usuario administrador
 	admin_data = {
-	'name': 'administrador', 
-	'last_name_1': '', 
-	'last_name_2': '', 
-	'email': 'admin@admin', 
-	'password_hash': '1234', 
-	'admin': 1, 
-	'born_date': None, 
-	'describe': 'Administrador de la aplicacion', 
-	'verify_email': True, 
-	'picture': 'https://cdn-icons-png.flaticon.com/512/2942/2942813.png'}
-	User = Schema_Users().load(admin_data)
+	"name": "Administrador",
+	"last_name_1": "garces",
+	"last_name_2": "Castañeda",
+	"type_document": "CC",
+	"document": "12345678",
+	"password": "Adm1n15trad0r",
+	"rol_id":3,
+	"picture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2hN83LJgNB8gfSxjNQ5bH5tcqZmNoDIVz4w&usqp=CAU",
+	"describe": "prueba"}
+
+	User = Schema_User().load(admin_data)
 	db.session.add(User)
 	db.session.commit()
 	print('Admin create')
@@ -75,9 +75,9 @@ def insert_types():
 	db.session.commit()
 	print('Types created')
 
-db.create_all()
+#db.create_all()
 #insert_rol()
-#insert_users()
+#insert_admin()
 #insert_types()
 
 app.run(debug=True , host="0.0.0.0")
