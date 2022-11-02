@@ -4,6 +4,9 @@ from app.app import app, db, ma
 from app.Models.Model_User import Model_User, Schema_User
 
 # Este metodo permite loguear un usuario
+# Input:
+#	document : STR
+#	password : STR
 @app.route('/Login', methods = ["POST"])
 def Login():
 	json = request.get_json(force=True)

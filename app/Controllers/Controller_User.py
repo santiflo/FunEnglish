@@ -3,7 +3,7 @@ from pprint import pprint
 from app.app import app, db, ma
 from app.Models.Model_User import Model_User, Schema_User
 
-#Este metodo permite crear un usuario
+# Este metodo permite crear un usuario
 @app.route('/User/Create', methods = ["POST"])
 def create_User():
 	json = request.get_json(force=True)
@@ -33,9 +33,7 @@ def search_User_id(user_id):
 @app.route('/User/Update', methods = ["PUT"])
 def update_User():
 	json = request.get_json(force=True)
-
 	User = Model_User.query.get(json['id'])
-
 	if json['name'] 			!= '': User.name 			= json['name']
 	if json['last_name_1'] 		!= '': User.last_name_1 	= json['last_name_1']
 	if json['last_name_2'] 		!= '': User.last_name_2 	= json['last_name_2']
@@ -85,7 +83,7 @@ def adminUsers():
 	Users = Model_User.query.with_entities(
 		Model_Users.id, 
 		Model_Users.name, 
-		Model_Users.email, 
+		Model_Users.document, 
 		Model_Users.admin,
 		Model_Users.is_activate
 	).all()

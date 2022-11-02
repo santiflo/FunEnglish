@@ -29,8 +29,8 @@ def search_Course_id(course_id):
 #Este metodo permite buscar un grado por su nombre
 @app.route('/Course/Search/name_course/<name_course>', methods = ["GET"])
 def search_Course_name_course(name_course):
-	Grades = Model_Grade.query.filter(Model_Grade.name_course.ilike(f'%{name_course}%')).all()
-	json = Schema_Users(many = True).dump(Grades)
+	Courses = Model_Grade.query.filter(Model_Course.name_course.ilike(f'%{name_course}%')).all()
+	json = Schema_Course(many = True).dump(Corses)
 	return jsonify(json), 200
 
 

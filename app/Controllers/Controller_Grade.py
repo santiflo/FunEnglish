@@ -30,7 +30,7 @@ def search_Grade_id(grade_id):
 @app.route('/Grade/Search/name_grade/<name_grade>', methods = ["GET"])
 def search_Grade_name_grade(grade_name):
 	Grades = Model_Grade.query.filter(Model_Grade.grade_name.ilike(f'%{name_grade}%')).all()
-	json = Schema_Users(many = True).dump(Grades)
+	json = Schema_Grade(many = True).dump(Grades)
 	return jsonify(json), 200
 
 

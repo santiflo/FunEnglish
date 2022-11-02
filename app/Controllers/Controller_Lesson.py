@@ -22,17 +22,23 @@ def all_Lesson():
 #Este metodo permite buscar una leccion mediante su id
 @app.route('/Lesson/Search/id/<lesson_id>', methods = ["GET"])
 def search_Lesson_id(lesson_id):
-	Lesson = Model_Lesson.query.get(lesson_id)
+	Lesson = Model_Lesson.query.get(int(lesson_id))
 	json = Schema_Lesson().dump(Lesson)
 	return jsonify(json), 200
 
 #Este metodo permite buscar una leccion por su tipo de leccion
 @app.route('/Lesson/Search/lesson_type_id/<lesson_type_id>', methods = ["GET"])
 def search_Lesson_lesson_type_id(lesson_type_id):
-	Lesson = Model_Lesson.query.filter(Model_Lesson.lesson_type_id.ilike(lesson_type_id)).all()
+	Lesson = Model_Lesson.query.filter(Model_Lesson.lesson_type_id == int(lesson_type_id))
 	json = Schema_Lesson(many = True).dump(Lesson)
 	return jsonify(json), 200
 
+#Este metodo permite buscar una leccion por su titulo
+@app.route('/Lesson/Search/title/<title>', methods = ["GET"])
+def search_Lesson_title(title):
+	Lesson = Model_Lesson.query.filter(Model_Lesson.title.ilike(f'%{title}%')).all()
+	json = Schema_Lesson(many = True).dump(Lesson)
+	return jsonify(json), 200
 
 #Este metodo permite actualizar una leccion
 @app.route('/Lesson/Update', methods = ["PUT"])
@@ -45,7 +51,8 @@ def update_Lesson():
 	if json['audio']		!= '' : Lesson.audio 		= json['audio']
 	if json['background']	!= '' : Lesson.background 	= json['background']
 	if json['bibliography'] != '' : Lesson.bibliography = json['bibliography']
-	if json['url'] 			!= '' : Lesson.url			= json['url'] 
+	if Lesson.lesson_type_id == 1 : 
+		if json['url'] 			!= '' : Lesson.url			= json['url']
 	db.session.commit()
 	return "OK", 200
 

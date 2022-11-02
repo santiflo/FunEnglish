@@ -20,9 +20,16 @@ def all_Comment():
 	return jsonify(json), 200
 
 #Este metodo permite buscar un tipo de leccion mediante su id
-@app.route('/Comment/Search/id/<Comment_id>', methods = ["GET"])
-def search_Comment_id(Comment_id):
-	Comment = Model_Comment.query.get(Comment_id)
+@app.route('/Comment/Search/id/<comment_id>', methods = ["GET"])
+def search_Comment_id(comment_id):
+	Comment = Model_Comment.query.get(comment_id)
+	json = Schema_Comment().dump(Comment)
+	return jsonify(json), 200
+
+#Este metodo permite buscar un comentario mediante el lesson_id
+@app.route('/Comment/Search/course_id/<lesson_id>', methods = ["GET"])
+def search_Comment_id(lesson_id):
+	Comment = Model_Comment.query.filter(Model_Comment.lesson_id == lesson_id)
 	json = Schema_Comment().dump(Comment)
 	return jsonify(json), 200
 

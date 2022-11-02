@@ -26,8 +26,8 @@ class Model_Lesson(db.Model):
 	course_id = Column(Integer, ForeignKey('TBL_COURSE.id'), nullable = True)
 	lesson_type_id = Column(Integer, ForeignKey('TBL_LESSON_TYPE.id'), nullable = False)
 	#Relaciones
-	Content = db.relationship('Model_Content', backref = 'Lesson', lazy = 'dynamic')
-	Comment = db.relationship('Model_Comment', backref = 'Lesson', lazy = 'dynamic')
+	Content = db.relationship('Model_Content', backref = 'Lesson', lazy = 'dynamic', cascade="all, delete-orphan")
+	Comment = db.relationship('Model_Comment', backref = 'Lesson', lazy = 'dynamic', cascade="all, delete-orphan")
 	#Triggers
 
 	def __repr__(self):
